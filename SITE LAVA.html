@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Oklook Estética Automotiva</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+/* CANVAS */
+canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* HEADER */
+.header {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  right: 16px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+}
+
+/* ESQUERDA */
+.left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* DIREITA */
+.right {
+  margin-left: auto;
+  position: relative;
+}
+
+/* LOGO */
+.logo-wrapper {
+  width: 30px;
+  height: 30px;
+  background: #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #fff;
+}
+
+/* NOME */
+.empresa {
+  font-size: 13px;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* BOTÃO MENU */
+.menu-btn {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid #fff;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.menu-btn span {
+  width: 18px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+/* MENU */
+.menu {
+  position: absolute;
+  top: 42px;
+  right: 0;
+  width: 220px;
+  background: rgba(0,0,0,0.97);
+  border-radius: 10px;
+  display: none;
+  box-shadow: 0 0 15px rgba(255,255,255,0.15);
+}
+
+.menu-item {
+  padding: 12px 14px;
+  cursor: pointer;
+}
+
+.menu-item:not(:last-child) {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.menu-title {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.menu-desc {
+  color: #aaa;
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.menu-item:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+/* RODAPÉ COMPACTO HORIZONTAL */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #212429; /* cor atualizada */
+  color: #fff;
+  font-size: 12px;
+  padding: 8px 0;
+  line-height: 1.3;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.footer a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.footer a:hover {
+  color: #ccc;
+}
+
+/* IMAGEM INSTAGRAM */
+.footer img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- CANVAS DE PARTICULAS -->
+<canvas id="particles"></canvas>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="left">
+    <div class="logo-wrapper">
+      <img src="https://cdn.discordapp.com/attachments/1420356291733356567/1453194322550984775/file_00000000be18720ebedec9a8739460ba.png?ex=694c902d&is=694b3ead&hm=5a365313f03fca6d1da1436ffd0c934e6b7279f4932300e8cb14a63528024ad7&" class="logo">
+    </div>
+    <span class="empresa">Oklook Estética Automotiva</span>
+  </div>
+
+  <div class="right">
+    <div class="menu-btn" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="menu" id="menu">
+      <div class="menu-item">
+        <div class="menu-title">🧼 Fazer Agendamento</div>
+        <div class="menu-desc">Solicite lavagem, polimento ou estética completa</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-title">💬 Suporte</div>
+        <div class="menu-desc">Fale com nossa equipe para dúvidas</div>
+      </div>
+      <div class="menu-item">
+        <div class="menu-title">🔒 Login Admin</div>
+        <div class="menu-desc">Área restrita para administradores</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RODAPÉ -->
+<div class="footer">
+  Desenvolvido por <a href="https://Dev_Street.com.br" target="_blank">Dev_Street</a> |
+  2025 - 2026 OkLook |
+  <a href="#">Política de Privacidade</a> • <a href="#">Redes sociais</a> |
+  <a href="https://www.instagram.com/oklook_estetica_automotiva?igsh=N256bW50bGlieHd0" target="_blank">
+    <img src="https://cdn.discordapp.com/attachments/1420356291733356567/1453220173203902584/logo-instagram-png-fundo-transparente.png?ex=694ca840&is=694b56c0&hm=1bb0529c8691b6a17b93c2e7e139fb4f553bf6cd4743bd7a12d6278f6fb84abd&" alt="Instagram Oklook">
+  </a>
+</div>
+
+<script>
+/* MENU */
+function toggleMenu() {
+  const menu = document.getElementById("menu");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+
+document.addEventListener("click", e => {
+  if (!e.target.closest(".right")) {
+    document.getElementById("menu").style.display = "none";
+  }
+});
+
+/* PARTICULAS */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+let particles = [];
+const TOTAL = 150;
+
+function resizeCanvas() {
+  const dpr = window.devicePixelRatio || 1;
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  canvas.width = w * dpr;
+  canvas.height = h * dpr;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+for (let i = 0; i < TOTAL; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.5,
+    vy: (Math.random() - 0.5) * 0.5,
+    r: Math.random() * 2 + 0.8,
+    a: Math.random() * 0.6 + 0.3
+  });
+}
+
+function animate() {
+  ctx.fillStyle = "#000";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  for (let p of particles) {
+    p.x += p.vx;
+    p.y += p.vy;
+
+    if (p.x <= 0 || p.x >= canvas.width) p.vx *= -1;
+    if (p.y <= 0 || p.y >= canvas.height) p.vy *= -1;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${p.a})`;
+    ctx.fill();
+  }
+
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>
